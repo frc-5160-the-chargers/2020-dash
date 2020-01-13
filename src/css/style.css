@@ -16,11 +16,7 @@ body {
     overflow: hidden;
     background: #222;
 }
-button,
-input[type="text"],
-input[type="number"],
-.select-container,
-select {
+button, input[type="text"], input[type="number"], .select-container, select {
     color: white;
     background: #444;
     border: none;
@@ -39,17 +35,14 @@ select {
     color: white;
     height: 25px;
 }
-input[type="text"],
-input[type="number"] {
+input[type="text"], input[type="number"] {
     cursor: text;
 }
 input[type="checkbox"] {
     -webkit-filter: saturate(0);
     filter: saturate(0);
 }
-
 /* Major interface panes, aside, article, header, etc. */
-
 body > * {
     padding: 10px;
     position: fixed;
@@ -82,24 +75,8 @@ header {
     height: 80vh;
     overflow: hidden;
     background-color: #333;
-    background-size: cover;
-    background-image: url('http://10.14.18.2:5800/?action=stream');
-    image-rendering: optimizeSpeed;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: pixelated;
-    image-rendering: optimize-contrast;
-}
-#tuning {
-    width: 50vw;
-    height: 80vh;
-    bottom: 0;
-    left: 0;
-}
-#tuning div {
-    margin: 20px 0;
-}
-#tuning p {
-    margin-bottom: 10px;
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    background-image: url('http://10.51.60.2:5800');
 }
 article {
     top: 0;
@@ -122,11 +99,15 @@ text {
     fill: white;
 }
 #gyro {
-    width: 450px;
-    height: 450px;
+    width: 175px;
+    height: 175px;
+    margin-left: 30px;
+    margin-top: 15px;
 }
 #gyro-arm {
-    transform-origin: center;
+    -webkit-transform-origin: bottom;
+    -ms-transform-origin: bottom;
+    transform-origin: bottom;
 }
 #gyro-number {
     font-size: 25px;
@@ -146,19 +127,6 @@ text {
     font-size: 28px;
     letter-spacing: -1px;
 }
-#winch rect {
-    /* Keep the transition property here. This avoids color fading when a theme is applied. */
-    transition: .5s transform;
-}
-#winch .forward {
-    transform: rotate(-45deg);
-}
-#winch .back {
-    transform: rotate(45deg);
-}
-.transparent {
-    fill: none;
-}
 aside {
     right: 0;
     top: 0;
@@ -168,71 +136,27 @@ aside {
 aside > * {
     margin-bottom: 20px;
 }
-aside svg {
-    width: 64px;
-    display: block;
-    clear: both;
-}
-aside svg * {
-    fill: white;
-    stroke: white;
-}
-.active #bulb * {
-    fill: yellow;
-}
-#auto-aim {
-    fill: aqua;
-    width: 70px;
-    transition: .1s;
-}
-.active #auto-aim {
-    animation: 5s rotate infinite linear;
-}
-.active #auto-aim * {
-    fill: red;
-}
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-#auto {
-    width: 50vw;
-    height: 100vh;
-    top: 0;
-    right: 0;
+#login {
+    position: fixed;
     display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8)
 }
-#auto img {
-    width: 120px;
-    height: 120px;
+body.login #login {
+    display: flex;
 }
-.arrow-up,
-.arrow-down {
-    content: '';
-    width: 0;
-    height: 0;
-    border: 25px solid transparent;
-    margin: 0 auto;
-    display: block;
+#login :disabled {
+    opacity: 0.6;
 }
-.arrow-up {
-    border-bottom-color: #666;
+#login > * {
+    height: 40px;
 }
-.arrow-down {
-    border-top-color: #666;
-}
-.defense {
-    height: 140px;
-    width: 140px;
-    padding: 10px;
-    display: block;
-}
-#robot img {
-    height: 120px;
-    width: 120px;
+#login > button {
+    margin-left: 5px;
 }

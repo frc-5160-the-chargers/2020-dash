@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
     <link href="css/style.css" rel="stylesheet">
+    <script src="node_modules\chart.js\dist\Chart.js"></script>
+    <script src="node_modules\moment\moment.js"></script>
+    <script src="components/readoutVariables.js"></script>
 </head>
 
 <body>
@@ -14,12 +17,17 @@
         <div id="robot-state">Unknown state</div>
         <button id="connect-button">Connect</button>
     </header>
+    
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
-    <div id="camera"></div>
-    <script src="components/multicamera.js"></script>
+    <div id="camera">
+        <img id="camera_image" class="scale-down" src="paris.jpg">
+    </div>
+
+
     <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
     <article>
+
         <!-- Gyroscope -->
         <svg id="gyro">
             <circle cx="85" cy="85" r="83"></circle>
@@ -39,8 +47,16 @@
             <text id="team" x="185" y="405" text-anchor="middle">####</text>
         </svg>
     </article>
+    
+
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
+    
     <aside>
+        <!-- Alignment readout -->
+        <div id="alignment-readout">
+            <div id="alignment-color"></div>
+            <p id="alignment-text">Not aligned</p>
+        </div>
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
             The <p> below then says the value. -->
         <div id="example-section">
@@ -58,6 +74,10 @@
             <p>Adjust arm height</p>
             <input id="arm-position" type="range" min="0" max="1200" value="770">
         </div>
+        <div>
+            <canvas id="voltageGraph" height="200" style="background: white"></canvas>
+            <script type="text/javascript" src="components/voltageGraph.js"></script>
+        </div>
     </aside>
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
@@ -66,6 +86,7 @@
     <script src="networktables/networktables.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
+    <script type="text/javascript" src="components/multicamera.js"></script>
 </body>
 
 </html>

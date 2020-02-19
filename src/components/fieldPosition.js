@@ -22,6 +22,8 @@ var startLinePos = 0.207;
 var zeroAngle = 0;
 var startAngle = Math.PI/2;
 
+var enableDebug = false;
+
 
 var fieldDisplay = {
     matchStarted: false,
@@ -48,6 +50,9 @@ var fieldDisplay = {
     },
     log: document.getElementById("log")
 };
+
+fieldDisplay.manualInputs.container.style.display = (enableDebug ? "default" : "none");
+
 
 function printLog(text) {
     logs.push(text);

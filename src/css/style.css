@@ -82,6 +82,38 @@ header {
     /*background-image: url('https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/022017/untitled-1_53.jpg?itok=y2NkdH_0');*/
 }
 
+#climb_alert_big_container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 0, 0.8);
+    z-index: 300;
+}
+#climb_alert_big_box {
+
+    background-color: red;
+    width: 30%;
+    height: 24%;
+    position: absolute;
+    top: 38%;
+    left: 35%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: #fff;
+    border-style: solid;
+}
+
+#climb_alert_big_text {
+    height: 100%;
+    width: 100%;
+    font-size: 4em;
+    color: #fff;
+    text-align: center;
+}
+
 .scale-down {
 
     object-fit: contain;
@@ -112,13 +144,16 @@ text {
     fill: white;
 }
 
+#manual_input {
+
+    display: none;
+}
+
 #fieldDisplay-container {
-    border-color: #fff;
-    border-style: solid;
+
     width: 100%;
     height: 45%;
 }
-
 
 
 #fieldDisplay-indicator {

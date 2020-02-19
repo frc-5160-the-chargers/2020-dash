@@ -6,6 +6,8 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+
 body {
     font: 16px sans-serif;
     -webkit-user-select: none;
@@ -109,17 +111,59 @@ text {
     stroke: none;
     fill: white;
 }
+
+#fieldDisplay-container {
+    border-color: #fff;
+    border-style: solid;
+    width: 100%;
+    height: 45%;
+}
+
+
+
+#fieldDisplay-indicator {
+
+    width:auto;
+    position: absolute;
+    
+    /*edit these values so that the center of the indicator is directly over the top-left corner of the image*/
+    top:0.75%;
+    left: 1.4%;
+    /*max left is 0%, max right is 94.3%;
+    for some reason height is really stretched
+    max top is 0%, max bottom is 1133%.
+    [js sets these values to specify the position of the robot
+    */
+    transform: translate(0,0);
+}
+
+#fieldDisplay-indicator-image {
+    width: 3%;
+    height: 3%;
+    transform: rotate(90deg);
+}
+
 #alignment-color {
     width: 30px;
     height: 30px;
     margin: 10px;
     background-color: red;
 }
+
+#diagrams {
+    position: absolute;
+    bottom: 2%;
+    width: 105%;
+    height: 55%;
+
+}
+
 #gyro {
+    position: absolute;
     width: 175px;
     height: 175px;
-    margin-left: 30px;
-    margin-top: 15px;
+    left:2%;
+    bottom:2%;
 }
 #gyro-arm {
     -webkit-transform-origin: bottom;
@@ -130,16 +174,53 @@ text {
     font-size: 25px;
     text-anchor: middle;
 }
+
 #robot-diagram {
     position: absolute;
-    bottom: 1px;
-    right: 1vw;
+    bottom: 2px;
+    right: 1%;
 }
-#robot-arm {
-    -webkit-transform-origin: right;
-    -ms-transform-origin: right;
-    transform-origin: right;
-}
+
+  
+  #everybot-hook {
+    position: absolute;
+    right:20.7%;
+    bottom:12%;
+  }
+
+  #everybot-bumper {
+      border-style: solid;
+      border-color: #fff;
+      border-radius: 1px;
+      border-width: 0.5px;
+      background-color: red;
+      position: absolute;
+      width: 38.26%;
+      height: 8.3%;
+      right: 9%;
+      bottom: 4%;
+  }
+
+  #everybot-number {
+      font-size: 25px;
+      text-align: center;
+  }
+  
+  #everybot-body {
+    position: absolute;
+    right:8%;
+    bottom: 0%;
+  }
+  
+  #everybot-intake {
+    position: absolute;
+    right: 32.8%;
+    bottom: 3.7%;
+    -webkit-transform-origin: 98% 66%;
+    -ms-transform-origin: 98% 66%;
+    transform-origin: 98% 66%;
+  }
+
 #team {
     font-size: 28px;
     letter-spacing: -1px;
@@ -176,4 +257,10 @@ body.login #login {
 }
 #login > button {
     margin-left: 5px;
+}
+
+.log
+#log {
+    overflow: scroll;
+    z-index: 200;
 }

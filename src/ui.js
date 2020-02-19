@@ -13,12 +13,17 @@ let ui = {
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
+    everybotDiagram: {
+        intake: document.getElementById('everybot-intake'),
+        hook: document.getElementById('everybot-hook')
+    },
     example: {
         button: document.getElementById('example-button'),
         readout: document.getElementById('example-readout').firstChild
     },
     autoSelect: document.getElementById('auto-select'),
-    armPosition: document.getElementById('arm-position')
+    intakePosition: document.getElementById('intake-position'),
+    hookPosition: document.getElementById('hook-position')
 };
 
 // Key Listeners
@@ -36,8 +41,9 @@ let updateGyro = (key, value) => {
 };
 NetworkTables.addKeyListener('/SmartDashboard/drive/navx/yaw', updateGyro);
 
+
 // The following case is an example, for a robot with an arm at the front.
-NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
+NetworkTables.addKeyListener('/SmartDashboard/intake/encoder', (key, value) => {
     // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
     if (value > 1140) {
         value = 1140;
@@ -46,9 +52,21 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
         value = 0;
     }
     // Calculate visual rotation of arm
-    var armAngle = value * 3 / 20 - 45;
+    var intakeAngle = value * 3 / 20 - 45;
     // Rotate the arm in diagram to match real arm
-    ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
+    //ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
+    ui.everybotDiagram.intake.style.transform = `rotate(${intakeAngle}deg)`;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/hook/position', (key, value) => {
+    // 0 is all the way down, 100 is maximum raise
+    if (value > 140) {
+        value = 140;
+    }
+    else if (value < 0) {
+        value = 0;
+    }
+    ui.everybotDiagram.hook.style.transform = `translateY(-${value}px)`;
 });
 
 // This button is just an example of triggering an event on the robot by clicking a button.
@@ -63,6 +81,8 @@ NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // We assume here that value is an integer representing the number of seconds left.
     ui.timer.textContent = value < 0 ? '0:00' : Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
 });
+
+
 
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) => {
@@ -91,9 +111,12 @@ ui.example.button.onclick = function() {
     // Set NetworkTables values to the opposite of whether button has active class.
     NetworkTables.putValue('/SmartDashboard/example_variable', this.className != 'active');
 };
+
+
+
+
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function() {
-
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
@@ -104,8 +127,13 @@ ui.autoSelect.onchange = function() {
     NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
 };
 // Get value of arm height slider when it's adjusted
-ui.armPosition.oninput = function() {
-    NetworkTables.putValue('/SmartDashboard/arm/encoder', parseInt(this.value));
+ui.intakePosition.oninput = function() {
+    NetworkTables.putValue('/SmartDashboard/intake/encoder', parseInt(this.value));
+};
+
+// Get value of arm height slider when it's adjusted
+ui.hookPosition.oninput = function() {
+    NetworkTables.putValue('/SmartDashboard/hook/position', parseInt(this.value));
 };
 
 addEventListener('error',(ev)=>{

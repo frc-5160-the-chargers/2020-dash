@@ -7,7 +7,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="node_modules\chart.js\dist\Chart.js"></script>
     <script src="node_modules\moment\moment.js"></script>
-    <script src="components/readoutVariables.js"></script>
+    <script src="components\readoutVariables.js"></script>
 </head>
 
 <body>
@@ -18,34 +18,68 @@
         <button id="connect-button">Connect</button>
     </header>
     
+    
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
     <div id="camera">
         <img id="camera_image" class="scale-down" src="paris.jpg">
     </div>
-
+    <div class="log">
+        <p id="log">LOG:</p>
+    </div>
 
     <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
     <article>
+        <div id="fieldDisplay-container" style="z-index: 2000;">
+            <div id="fieldDisplay-image-container">
+                <img class="scale-down" id="fieldDisplay-image" src="field.png">
+                <div id="fieldDisplay-indicator">
+                    <img id="fieldDisplay-indicator-image" src="robot-indicator.png">
+                </div>
+            </div>
+            <div id="fieldDisplay-start-container">
+                <p id="outputLog">Set Robot Starting Pos</p>
+                <input id="fieldDisplay-start" type="range" min="0" max="1000" value="500">
+                <p id="fieldDisplay-start-output">50%</p>
+            </div>
+            <div id="fieldDisplay-location" style="display: none;">
+                <p id="fieldDisplay-position">Position: [a%,b%] of field size</p>
+                <p id="fieldDisplay-angle">Angle: 0 degrees</p>
+            </div>
+            <aside id="manual_input" style="z-index: 200;">
+                <label for="theta">Manual Theta Angle (degrees)</label>
+                <input id="theta" type="number" min=-360 max=360>
+                <label for="velocity">Manual Velocity (Inches/sec)</label>
+                <input id="velocity" type="number">
+                <label for="timeStep">Time Step Size</label>
+                <input id="timeStep" type="number" value="1">
+                <button id="timeStepEnter">Step</button>
+                <label for="match-started">Toggle match</label>
+                <input id="match-started" type="checkbox">
+            </aside>
 
-        <!-- Gyroscope -->
-        <svg id="gyro">
-            <circle cx="85" cy="85" r="83"></circle>
-            <circle cx="85" cy="85" r="50"></circle>
-            <rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
-            <text id="gyro-number" x="90" y="115">0º</text>
-        </svg>
+            
+
+        </div>
+        <div id="diagrams" style="z-index: -10;">
+            <div id="everybot-diagram">
+                <svg width="8%" id="everybot-hook" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="328.0909090909091 18.494934082031264 84.30303030303043 428.2424242424242"><defs><path d="M329.09 64.95L329.12 63.08L329.22 61.22L329.39 59.39L329.62 57.58L329.91 55.79L330.26 54.03L330.67 52.3L331.14 50.59L331.67 48.91L332.25 47.26L332.89 45.65L333.58 44.07L334.32 42.52L335.11 41.01L335.95 39.54L336.84 38.11L337.78 36.72L338.76 35.38L339.79 34.07L340.86 32.81L341.97 31.6L343.12 30.44L344.31 29.33L345.54 28.27L346.8 27.26L348.1 26.31L349.43 25.41L350.8 24.57L352.19 23.79L353.62 23.07L355.07 22.41L356.56 21.81L358.07 21.28L359.6 20.82L361.15 20.42L362.73 20.09L364.33 19.83L365.95 19.65L367.59 19.53L369.24 19.49L370.9 19.53L372.53 19.65L374.15 19.83L375.75 20.09L377.33 20.42L378.89 20.82L380.42 21.28L381.93 21.81L383.41 22.41L384.86 23.07L386.29 23.79L387.69 24.57L389.05 25.41L390.39 26.31L391.68 27.26L392.95 28.27L394.18 29.33L395.37 30.44L396.52 31.6L397.63 32.81L398.7 34.07L399.72 35.38L400.71 36.72L401.64 38.11L402.53 39.54L403.37 41.01L404.17 42.52L404.91 44.07L405.6 45.65L406.24 47.26L406.82 48.91L407.35 50.59L407.82 52.3L408.23 54.03L408.58 55.79L408.87 57.58L409.1 59.39L409.26 61.22L409.36 63.08L409.39 64.95L393.39 64.95L393.36 63.45L393.29 61.97L393.16 60.51L392.98 59.07L392.76 57.66L392.49 56.26L392.17 54.9L391.81 53.56L391.4 52.24L390.96 50.96L390.47 49.71L389.94 48.49L389.37 47.31L388.77 46.16L388.13 45.05L387.45 43.98L386.74 42.95L386 41.97L385.22 41.02L384.42 40.13L383.59 39.27L382.72 38.47L381.83 37.72L380.92 37.02L379.97 36.37L379.01 35.77L378.02 35.24L377.01 34.75L375.98 34.33L374.94 33.97L373.87 33.67L372.79 33.44L371.69 33.27L370.58 33.17L369.45 33.13L368.32 33.17L367.21 33.27L366.11 33.44L365.03 33.67L363.96 33.97L362.92 34.33L361.89 34.75L360.88 35.24L359.89 35.77L358.93 36.37L357.99 37.02L357.07 37.72L356.18 38.47L355.32 39.27L354.48 40.13L353.68 41.02L352.9 41.97L352.16 42.95L351.45 43.98L350.77 45.05L350.13 46.16L349.53 47.31L348.96 48.49L348.43 49.71L347.95 50.96L347.5 52.24L347.09 53.56L346.73 54.9L346.42 56.26L346.14 57.66L345.92 59.07L345.74 60.51L345.61 61.97L345.54 63.45L345.51 64.95L345.51 443.74L329.09 443.74L329.09 64.95Z" id="b25dPXhNAJ"></path></defs><g><g><use xlink:href="#b25dPXhNAJ" opacity="1" fill="#5b5c7a" fill-opacity="1"></use></g></g></svg>
+                <svg width="40%" id="everybot-body" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="134.15151515151507 100.61614620324303 400.96969696969717 441.57575757575796"><defs><path d="M532.12 443.74L532.12 519.49L509.4 519.49L509.29 519.75L508.75 520.88L508.16 521.99L507.53 523.07L506.86 524.13L506.14 525.16L505.39 526.16L504.59 527.13L503.76 528.08L502.89 528.99L501.98 529.87L501.04 530.72L500.06 531.53L499.05 532.31L498.01 533.05L496.93 533.75L495.83 534.42L494.7 535.05L493.54 535.64L492.35 536.19L491.14 536.69L489.91 537.15L488.65 537.57L487.37 537.94L486.07 538.27L484.75 538.54L483.41 538.78L482.05 538.96L480.67 539.09L479.28 539.17L477.88 539.19L476.47 539.17L475.08 539.09L473.71 538.96L472.35 538.78L471.01 538.54L469.69 538.27L468.39 537.94L467.11 537.57L465.85 537.15L464.61 536.69L463.4 536.19L462.22 535.64L461.06 535.05L459.93 534.42L458.82 533.75L457.75 533.05L456.71 532.31L455.7 531.53L454.72 530.72L453.78 529.87L452.87 528.99L452 528.08L451.16 527.13L450.37 526.16L449.61 525.16L448.9 524.13L448.23 523.07L447.6 521.99L447.01 520.88L446.47 519.75L446.36 519.49L365.16 519.49L365.05 519.75L364.51 520.88L363.92 521.99L363.29 523.07L362.62 524.13L361.9 525.16L361.15 526.16L360.35 527.13L359.52 528.08L358.65 528.99L357.74 529.87L356.79 530.72L355.82 531.53L354.81 532.31L353.76 533.05L352.69 533.75L351.59 534.42L350.46 535.05L349.3 535.64L348.11 536.19L346.9 536.69L345.67 537.15L344.41 537.57L343.13 537.94L341.82 538.27L340.5 538.54L339.16 538.78L337.81 538.96L336.43 539.09L335.04 539.17L333.64 539.19L332.23 539.17L330.84 539.09L329.47 538.96L328.11 538.78L326.77 538.54L325.45 538.27L324.15 537.94L322.87 537.57L321.61 537.15L320.37 536.69L319.16 536.19L317.98 535.64L316.82 535.05L315.68 534.42L314.58 533.75L313.51 533.05L312.47 532.31L311.46 531.53L310.48 530.72L309.54 529.87L308.63 528.99L307.76 528.08L306.92 527.13L306.13 526.16L305.37 525.16L304.66 524.13L303.98 523.07L303.35 521.99L302.77 520.88L302.23 519.75L302.12 519.49L224.25 519.49L224.14 519.75L223.6 520.88L223.01 521.99L222.38 523.07L221.71 524.13L220.99 525.16L220.24 526.16L219.44 527.13L218.61 528.08L217.74 528.99L216.83 529.87L215.88 530.72L214.91 531.53L213.9 532.31L212.86 533.05L211.78 533.75L210.68 534.42L209.55 535.05L208.39 535.64L207.2 536.19L205.99 536.69L204.76 537.15L203.5 537.57L202.22 537.94L200.92 538.27L199.59 538.54L198.25 538.78L196.9 538.96L195.52 539.09L194.13 539.17L192.73 539.19L191.32 539.17L189.93 539.09L188.56 538.96L187.2 538.78L185.86 538.54L184.54 538.27L183.24 537.94L181.96 537.57L180.7 537.15L179.46 536.69L178.25 536.19L177.07 535.64L175.91 535.05L174.77 534.42L173.67 533.75L172.6 533.05L171.56 532.31L170.55 531.53L169.57 530.72L168.63 529.87L167.72 528.99L166.85 528.08L166.01 527.13L165.22 526.16L164.46 525.16L163.75 524.13L163.07 523.07L162.44 521.99L161.86 520.88L161.32 519.75L161.21 519.49L135.15 519.49L135.15 443.74L324.55 443.74L324.55 101.62L350.06 101.62L350.06 443.74L532.12 443.74Z" id="dgITe5wcB"></path></defs><g><g><use xlink:href="#dgITe5wcB" opacity="1" fill="#000000" fill-opacity="1"></use></g></g></svg>
+                <svg width="24%" id="everybot-intake" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="42.48475461154187 247.28281286991069 247.18191205512483 275.2121212121207"><defs><path d="M100.04 248.48L102.15 248.71L104.23 249.04L106.29 249.46L108.31 249.97L110.31 250.57L112.27 251.25L114.2 252.01L116.1 252.85L117.95 253.77L119.77 254.77L121.55 255.85L123.28 256.99L124.97 258.21L126.62 259.5L128.22 260.86L129.77 262.28L131.27 263.76L132.71 265.31L134.1 266.92L135.44 268.58L136.72 270.31L137.94 272.08L139.1 273.91L140.19 275.79L141.23 277.72L142.19 279.7L143.09 281.72L143.92 283.78L144.68 285.89L145.36 288.03L145.97 290.22L146.51 292.43L146.97 294.69L147.35 296.97L147.64 299.29L147.86 301.63L147.99 304L148.03 306.39L148.03 443.74L129.09 443.74L129.09 519.49L103.33 519.49L103.33 443.74L43.48 443.74L43.48 306.39L43.53 304L43.66 301.63L43.87 299.29L44.17 296.97L44.55 294.69L45.01 292.43L45.54 290.22L46.15 288.03L46.84 285.89L47.6 283.78L48.42 281.72L49.32 279.7L50.29 277.72L51.32 275.79L52.42 273.91L53.58 272.08L54.8 270.31L56.07 268.58L57.41 266.92L58.8 265.31L60.25 263.76L61.75 262.28L63.3 260.86L64.89 259.5L66.54 258.21L68.23 256.99L69.97 255.85L71.74 254.77L73.56 253.77L75.42 252.85L77.31 252.01L79.24 251.25L81.21 250.57L83.2 249.97L85.23 249.46L87.28 249.04L89.37 248.71L91.47 248.48L93.6 248.33L95.76 248.28L97.91 248.33L100.04 248.48ZM148.03 437.68L148.03 421.01L286.67 421.01L286.67 437.68L148.03 437.68Z" id="ggdiuabwH"></path></defs><g><g><use xlink:href="#ggdiuabwH" opacity="1" fill="#ffffff" fill-opacity="1"></use><g><use xlink:href="#ggdiuabwH" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="1"></use></g></g></g></svg>
+                <div id="everybot-bumper">
+                    <p id="everybot-number">5160</p>
+                </div>
+            </div>
+            <!-- Gyroscope -->
+            <svg id="gyro">
+                <circle cx="85" cy="85" r="83"></circle>
+                <circle cx="85" cy="85" r="50"></circle>
+                <rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
+                <text id="gyro-number" x="90" y="115">0º</text>
+            </svg>
+        </div>
         <!-- Example robot diagram, arm moves when encoder value changes -->
-        <svg id="robot-diagram" width="332" height="450">
-            <text x="40" y="340">Example SVG Robot Diagram</text>
-            <rect x="75" y="360" width="230" height="40"></rect>
-            <rect x="85" y="370" width="210" height="40"></rect>
-            <rect id="robot-arm" x="5" y="375" width="80" height="10"></rect>
-            <circle cx="100" cy="410" r="25"></circle>
-            <circle cx="260" cy="410" r="25"></circle>
-            <rect x="60" y="380" width="250" height="30"></rect>
-            <text id="team" x="185" y="405" text-anchor="middle">####</text>
-        </svg>
+        
     </article>
     
 
@@ -71,8 +105,12 @@
             </select>
         </div>
         <div>
-            <p>Adjust arm height</p>
-            <input id="arm-position" type="range" min="0" max="1200" value="770">
+            <p>Adjust intake height</p>
+            <input id="intake-position" type="range" min="300" max="650" value="200">
+        </div>
+        <div>
+            <p>Adjust hook height</p>
+            <input id="hook-position" type="range" min="0" max="140" value="0">
         </div>
         <div>
             <canvas id="voltageGraph" height="200" style="background: white"></canvas>
@@ -87,6 +125,8 @@
     <script src="ui.js"></script>
     <script src="connection.js"></script>
     <script type="text/javascript" src="components/multicamera.js"></script>
+    <script src="components\fieldPosition.js"></script>
+
 </body>
 
 </html>

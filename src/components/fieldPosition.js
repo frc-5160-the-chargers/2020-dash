@@ -4,7 +4,7 @@ var startPosKeyName = 'fieldPos/startPos';
 var robotDisplayPosKeyName = 'fieldPos/displayPos'; //array of {x,y} with x and y from 0-1, both measured from (0,0) in the top left of the field
 var robotDisplayAngleKeyName = 'fieldPos/displayAngle'; //double from 0-2pi
 var isMatchStartedKeyName = 'started question mark'; //boolean (TBD); use as boolean
-var timeStampKeyName = 'time';
+var timeStampKeyName = 'Time Stamp';
 var thetaKeyName = 'theta';
 var velocityKeyName = 'vel';
 var logs = [];
@@ -51,7 +51,8 @@ var fieldDisplay = {
     log: document.getElementById("log")
 };
 
-fieldDisplay.manualInputs.container.style.display = (enableDebug ? "default" : "none");
+fieldDisplay.manualInputs.container.style.display = (enableDebug ? "initial" : "none");
+fieldDisplay.log.style.display = (enableDebug ? "initial" : "none");
 
 
 function printLog(text) {

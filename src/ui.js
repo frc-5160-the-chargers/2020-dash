@@ -14,6 +14,7 @@ let ui = {
         arm: document.getElementById('robot-arm')
     },
     everybotDiagram: {
+        
         intake: document.getElementById('everybot-intake'),
         hook: document.getElementById('everybot-hook')
     },
@@ -23,8 +24,13 @@ let ui = {
     },
     autoSelect: document.getElementById('auto-select'),
     intakePosition: document.getElementById('intake-position'),
-    hookPosition: document.getElementById('hook-position')
+    hookPosition: document.getElementById('hook-position'),
+    sliders: document.getElementById('manual_everybot_adjustments')
 };
+
+var display_debug_adjusters = true;
+ui.sliders.style.display = (display_debug_adjusters ? 'initial' : 'none');
+
 
 // Key Listeners
 

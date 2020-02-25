@@ -74,6 +74,9 @@
                     <p id="everybot-number">5160</p>
                 </div>
             </div>
+
+            
+
             <!-- Gyroscope -->
             <svg id="gyro">
                 <circle cx="85" cy="85" r="83"></circle>
@@ -108,18 +111,33 @@
                 <!-- This gets populated by JS -->
             </select>
         </div>
-        <div>
-            <p>Adjust intake height</p>
-            <input id="intake-position" type="range" min="300" max="650" value="200">
+        
+        <div id="manual_everybot_adjustments">
+            <div>
+                <p>Adjust intake height</p>
+                <input id="intake-position" type="range" min="300" max="650" value="200">
+            </div>
+            <div>
+                <p>Adjust hook height</p>
+                <input id="hook-position" type="range" min="0" max="140" value="0">
+            </div>
         </div>
-        <div>
-            <p>Adjust hook height</p>
-            <input id="hook-position" type="range" min="0" max="140" value="0">
-        </div>
+
         <div>
             <canvas id="voltageGraph" height="200" style="background: white"></canvas>
             <script type="text/javascript" src="components/voltageGraph.js"></script>
         </div>
+
+        <!-- color wheel-->
+        <div id="colorwheel-container">
+            <img id="colorwheel-wheel" src="color_wheel_together.png">
+            <div id="colorwheel-readouts">
+                <p id="colorwheel-color-name-output">None</p>
+                <p id="colorwheel-color-output-text">RGB: None</p>
+                <div id="colorwheel-color-output-box"></div>
+            </div>
+        </div>
+
     </aside>
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>

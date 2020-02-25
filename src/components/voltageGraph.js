@@ -6,7 +6,7 @@ var relativeTimeDuration = moment.duration(15,'seconds');
 
 var loggedData = []
 
-var voltageNTName = 'Battery voltage';
+var voltageNTName = 'Voltage';
 
 function pushData(value) {
     loggedData.push({time: moment(), voltage: value});

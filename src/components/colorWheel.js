@@ -9,6 +9,7 @@ var colorWheel = {
     color_output_text = document.getElementById("colorwheel-color-output-text"),
     color_output_box = document.getElementById("colorwheel-color-output-box"),
     name_output = document.getElementById("colorwheel-name-output"),
+    active_output = document.getElementById("colorwheel-enabled-text"),
     wheel = document.getElementById("colorwheel-wheel")
 }
 
@@ -28,5 +29,5 @@ NetworkTables.addKeyListener('/SmartDashboard/' + color_value_key, (key,value) =
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/' + wheel_active_key, (key,value) => {
-    colorWheel.container.style.opacity = (value ? '1' : '0.5');
+    colorWheel.active_output.innerHTML = "Auto: " + (value ? "Enabled" : "Disabled");
 });

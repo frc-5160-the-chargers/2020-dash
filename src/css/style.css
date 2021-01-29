@@ -175,6 +175,34 @@ text {
 
     width: 100%;
     height: 45%;
+    display: none;
+}
+
+#positionDisplay-container {
+
+    width: 100%;
+    height: 45%;
+}
+
+.positionDisplay-indicator {
+    width:auto;
+    position: absolute;
+    
+    /*edit these values so that the center of the indicator is directly over the top-left corner of the image*/
+    top:0.75%;
+    left: 1.4%;
+    /*max left is 0%, max right is 94.3%;
+    for some reason height is really stretched
+    max top is 0%, max bottom is 1133%.
+    [js sets these values to specify the position of the robot
+    */
+    transform: translate(0,0);
+}
+
+.positionDisplay-indicator-image {
+    width: 3%;
+    height: 3%;
+    transform: rotate(90deg);
 }
 
 
